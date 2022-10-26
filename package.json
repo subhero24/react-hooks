@@ -1,0 +1,30 @@
+{
+	"name": "react-hooks",
+	"version": "0.0.1",
+	"description": "Commonly used react hooks",
+	"main": "build/index.js",
+	"type": "module",
+	"types": "build/index.d.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "esbuild source/index.js --outfile=build/index.js --bundle --format=esm --sourcemap --minify --external:react --external:immer",
+		"develop": "esbuild source/index.js --outfile=build/index.js --bundle --format=esm --sourcemap --analyze --watch --external:react --external:immer",
+		"prepare": "npm run build && cp source/index.d.ts build/index.d.ts"
+	},
+	"keywords": [
+		"react",
+		"hooks"
+	],
+	"author": "Bruno Van Damme",
+	"license": "MIT",
+	"optionalDependencies": {
+		"immer": "^9.0.15",
+		"react": "^18.1.0"
+	},
+	"devDependencies": {
+		"esbuild": "^0.15.12",
+		"eslint": "^8.26.0",
+		"eslint-plugin-react": "^7.31.10",
+		"eslint-plugin-react-hooks": "^4.6.0"
+	}
+}
