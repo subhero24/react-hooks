@@ -18,7 +18,15 @@ export { default as useLocalStorageState } from './use-local-storage-state.js';
 export { default as useSessionStorageState } from './use-session-storage-state.js';
 
 export { useImmer, useImmerState, useImmerReducer } from './use-immer.js';
-export { useLoader, useLoading, useLoadingCallback } from './use-loading.js';
+
+export {
+	useLoader,
+	useLoadingState,
+	useCallbackLoadingState,
+	useCallbackBusyState,
+	useCallbackLoadingStates,
+} from './use-loading.js';
+
 export {
 	ScreenSize,
 	useScreenSize,

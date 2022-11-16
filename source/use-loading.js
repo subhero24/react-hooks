@@ -80,7 +80,7 @@ export function useLoader(options = {}) {
 	return [start, stop, loading];
 }
 
-export function useLoading(busy, options) {
+export function useLoadingState(busy, options) {
 	let [start, stop, loading] = useLoader(options);
 
 	useEffect(() => {
@@ -94,7 +94,7 @@ export function useLoading(busy, options) {
 	return loading;
 }
 
-export function useLoadingCallback(func, options) {
+export function useCallbackLoadingState(func, options) {
 	let idRef = useRef(0);
 	let [start, stop, loading] = useLoader(options);
 
@@ -111,6 +111,25 @@ export function useLoadingCallback(func, options) {
 	});
 
 	return [callback, loading];
+}
+
+export function useCallbackBusyState(func) {
+	let [busy, setBusy] = useState(false);
+
+	let callback = useImmutableCallback(async () => {
+		setBusy(true);
+		await func();
+		setBusy(false);
+	});
+
+	return [callback, busy];
+}
+
+export function useCallbackLoadingStates(func, options) {
+	let [callback1, busy] = useCallbackBusyState(func);
+	let [callback2, loading] = useCallbackLoadingState(callback1);
+
+	return [callback2, busy, loading];
 }
 
 export function createPromise(resolveResult, rejectResult) {

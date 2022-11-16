@@ -30,11 +30,16 @@ export function useLocalStorageState(key: string, initialState: any): [any, Func
 export function useSessionStorageState(key: string, initialState: any): [any, Function];
 
 export function useLoader(options?: { delayBusyMs: number; minBusyMs: number }): [Function, Function, boolean];
-export function useLoading(busy: boolean, options?: { delayBusyMs: number; minBusyMs: number }): boolean;
-export function useLoadingCallback(
+export function useLoadingState(busy: boolean, options?: { delayBusyMs: number; minBusyMs: number }): boolean;
+export function useCallbackBusyState(func: Function): [Function, boolean];
+export function useCallbackLoadingState(
 	func: Function,
 	options?: { delayBusyMs: number; minBusyMs: number },
 ): [Function, boolean];
+export function useCallbackLoadingStates(
+	func: Function,
+	options?: { delayBusyMs: number; minBusyMs: number },
+): [Function, boolean, boolean];
 
 export function useImmer(state: [any, Function]): [any, Function];
 export function useImmerState(initialvalue: any): [any, Function];
