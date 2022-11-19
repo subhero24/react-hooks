@@ -98,13 +98,13 @@ export function useCallbackLoadingState(func, options) {
 	let idRef = useRef(0);
 	let [start, stop, loading] = useLoader(options);
 
-	let callback = useImmutableCallback(async () => {
+	let callback = useImmutableCallback(async (...args) => {
 		let id = ++idRef.current;
 
 		start();
 
 		try {
-			return await func();
+			return await func(...args);
 		} finally {
 			if (id === idRef.current) {
 				await stop();
@@ -118,10 +118,10 @@ export function useCallbackLoadingState(func, options) {
 export function useCallbackBusyState(func) {
 	let [busy, setBusy] = useState(false);
 
-	let callback = useImmutableCallback(async () => {
+	let callback = useImmutableCallback(async (...args) => {
 		setBusy(true);
 		try {
-			return await func();
+			return await func(...args);
 		} finally {
 			setBusy(false);
 		}
