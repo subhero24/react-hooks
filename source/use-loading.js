@@ -103,10 +103,12 @@ export function useCallbackLoadingState(func, options) {
 
 		start();
 
-		await func();
-
-		if (id === idRef.current) {
-			await stop();
+		try {
+			return await func();
+		} finally {
+			if (id === idRef.current) {
+				await stop();
+			}
 		}
 	});
 
@@ -118,8 +120,11 @@ export function useCallbackBusyState(func) {
 
 	let callback = useImmutableCallback(async () => {
 		setBusy(true);
-		await func();
-		setBusy(false);
+		try {
+			return await func();
+		} finally {
+			setBusy(false);
+		}
 	});
 
 	return [callback, busy];

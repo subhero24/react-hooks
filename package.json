@@ -1,6 +1,6 @@
 {
 	"name": "react-hooks",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"description": "Commonly used react hooks",
 	"main": "build/index.js",
 	"type": "module",
