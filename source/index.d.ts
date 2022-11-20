@@ -14,6 +14,7 @@ export function useEventListener(
 
 export function useRefs(): any;
 export function useValue(props: { value?: any; defaultValue?: any; onChange?: Function }): [any, Function];
+export function useTimeout(func: Function, delay: number): void;
 export function usePrevious(value: any): any;
 export function useOuterRef(outerRef: any, value: any): any;
 export function useRendered(): boolean;

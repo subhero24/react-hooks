@@ -1,5 +1,6 @@
 export { default as useRefs } from './use-refs.js';
 export { default as useValue } from './use-value.js';
+export { default as useTimeout } from './use-timeout.js';
 export { default as usePrevious } from './use-previous.js';
 export { default as useRendered } from './use-rendered.js';
 export { default as useOuterRef } from './use-outer-ref.js';
