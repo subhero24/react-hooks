@@ -29,7 +29,7 @@ export function useDerivedState(callback: any, deps: any): [any, Function];
 export function useLocalStorageState(key: string, initialState: any): [any, Function];
 export function useSessionStorageState(key: string, initialState: any): [any, Function];
 
-export function useLoader(options?: { delayBusyMs: number; minBusyMs: number }): [Function, Function, boolean];
+export function useLoader(options?: { delayBusyMs: number; minBusyMs: number }): [boolean, Function, Function];
 export function useLoadingState(busy: boolean, options?: { delayBusyMs: number; minBusyMs: number }): boolean;
 export function useCallbackBusyState(func: Function): [Function, boolean];
 export function useCallbackLoadingState(

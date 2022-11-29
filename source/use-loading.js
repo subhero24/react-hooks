@@ -7,6 +7,7 @@ export function useLoader(options = {}) {
 
 	let busyRef = useRef(false);
 	let timerRef = useRef();
+	let timeoutRef = useRef();
 	let timestampRef = useRef();
 
 	let stopPromiseRef = useRef();
@@ -15,6 +16,8 @@ export function useLoader(options = {}) {
 	let [loading, setLoading] = useState(false);
 
 	let start = useImmutableCallback(async () => {
+		clearTimeout(timeoutRef.current);
+
 		if (loading) {
 			if (busyRef.current === false) {
 				busyRef.current = true;
@@ -45,11 +48,13 @@ export function useLoader(options = {}) {
 			}
 		} else {
 			if (immediate) {
-				timerRef.current = undefined;
-				timestampRef.current = undefined;
-				stopPromiseRef.current?.resolve();
+				timeoutRef.current = setTimeout(() => {
+					timerRef.current = undefined;
+					timestampRef.current = undefined;
+					stopPromiseRef.current?.resolve();
 
-				setLoading(false);
+					setLoading(false);
+				}, 0);
 			} else {
 				if (busyRef.current === true) {
 					busyRef.current = false;
@@ -65,10 +70,12 @@ export function useLoader(options = {}) {
 							setLoading(false);
 						}, minBusyMs - alreadyBusyForMs);
 					} else {
-						timerRef.current = undefined;
-						timestampRef.current = undefined;
+						timeoutRef.current = setTimeout(() => {
+							timerRef.current = undefined;
+							timestampRef.current = undefined;
 
-						setLoading(false);
+							setLoading(false);
+						}, 0);
 					}
 				}
 
@@ -77,11 +84,11 @@ export function useLoader(options = {}) {
 		}
 	});
 
-	return [start, stop, loading];
+	return [loading, start, stop];
 }
 
 export function useLoadingState(busy, options) {
-	let [start, stop, loading] = useLoader(options);
+	let [loading, start, stop] = useLoader(options);
 
 	useEffect(() => {
 		if (busy) {
@@ -96,7 +103,7 @@ export function useLoadingState(busy, options) {
 
 export function useCallbackLoadingState(func, options) {
 	let idRef = useRef(0);
-	let [start, stop, loading] = useLoader(options);
+	let [loading, start, stop] = useLoader(options);
 
 	let callback = useImmutableCallback(async (...args) => {
 		let id = ++idRef.current;
