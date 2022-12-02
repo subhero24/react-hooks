@@ -139,7 +139,7 @@ export function useCallbackBusyState(func) {
 
 export function useCallbackLoadingStates(func, options) {
 	let [callback1, busy] = useCallbackBusyState(func);
-	let [callback2, loading] = useCallbackLoadingState(callback1);
+	let [callback2, loading] = useCallbackLoadingState(callback1, options);
 
 	return [callback2, busy, loading];
 }
