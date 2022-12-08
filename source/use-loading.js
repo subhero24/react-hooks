@@ -49,6 +49,7 @@ export function useLoader(options = {}) {
 		} else {
 			if (immediate) {
 				timeoutRef.current = setTimeout(() => {
+					busyRef.current = false;
 					timerRef.current = undefined;
 					timestampRef.current = undefined;
 					stopPromiseRef.current?.resolve();
